@@ -4,11 +4,12 @@ import PackingMaterial from "../models/packingmaterialModel.js";
 // Add new item
 export const addItem = async (req, res) => {
   try {
-    const { name, quantity } = req.body;
+    const { name, quantity, type } = req.body;
 
     const newItem = new PackingMaterial({
       name,
       quantity,
+      type,
     });
 
     const savedItem = await newItem.save();

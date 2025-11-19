@@ -4,11 +4,12 @@ import Label from "../models/labelModel.js";
 // Add new item
 export const addItem = async (req, res) => {
   try {
-    const { name, quantity } = req.body;
+    const { name, quantity, type } = req.body;
 
     const newItem = new Label({
       name,
       quantity,
+      type,
     });
 
     const savedItem = await newItem.save();
@@ -22,7 +23,8 @@ export const addItem = async (req, res) => {
 export const updateItemQuantity = async (req, res) => {
   try {
     const { id } = req.params; // Item ID
-    const { quantity } = req.body; // Quantity to add
+    const { quantity } = req.body;
+     // Quantity to add
 
     const item = await Label.findById(id);
     if (!item) {
