@@ -15,5 +15,5 @@ router.get("/all", getAllItems);              // Get all items
 router.put("/reduce/:id", reduceItemQuantity); // Reduce quantity by ID
 // Export the router
 //helooooooooooooooooooooooooo
-//lekaomd
+
 export default router;

@@ -4,6 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import labelRoutes from "./routes/labelRoute.js";
 import chemicalRoutes from "./routes/chemicalRoute.js";
+import packingmaterialRoutes from "./routes/packingmaterialRoute.js";
+
 
 dotenv.config();
 const app = express();
@@ -12,6 +14,7 @@ app.use(express.json());
 
 app.use("/api/labels", labelRoutes);
 app.use("/api/chemicals", chemicalRoutes);
+app.use("/api/packingmaterials", packingmaterialRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
