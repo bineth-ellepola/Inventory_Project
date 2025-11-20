@@ -3,10 +3,12 @@ import Sidebar from "./components/Sidebar";
 import Labels from "./pages/Labels";
 import Chemicals from "./pages/Chemicals";
 import PackingMaterial from "./pages/PackingMaterial";
+import Login from "./pages/Login";
 
 function App() {
   return (
     <BrowserRouter>
+      
       <Sidebar />
 
       <Routes>

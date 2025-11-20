@@ -8,38 +8,41 @@ export const addItem = async (req, res) => {
 
     const newItem = new Label({
       name,
-      quantity,
       type,
+      quantity: 0,               // actual qty stays 0
+      pendingQuantity: quantity, // added qty waits in pending
+      status: "pending"   // 👈 default status
     });
 
     const savedItem = await newItem.save();
     res.status(201).json(savedItem);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Update item quantity (add to existing quantity)
 export const updateItemQuantity = async (req, res) => {
   try {
-    const { id } = req.params; // Item ID
+    const { id } = req.params;
     const { quantity } = req.body;
-     // Quantity to add
 
     const item = await Label.findById(id);
-    if (!item) {
-      return res.status(404).json({ message: "Item not found" });
-    }
+    if (!item) return res.status(404).json({ message: "Item not found" });
 
-    // Add the new quantity to existing quantity
-    item.quantity += quantity;
+    item.pendingQuantity += quantity; // add to pending
+    item.status = "pending";
 
-    const updatedItem = await item.save(); // updatedAt updates automatically
+    const updatedItem = await item.save();
     res.json(updatedItem);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 // Reduce item quantity (subtract from existing quantity)
 export const reduceItemQuantity = async (req, res) => {
@@ -71,6 +74,45 @@ export const reduceItemQuantity = async (req, res) => {
 export const getAllItems = async (req, res) => {
   try {
     const items = await Label.find().sort({ updatedAt: -1 });
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Process item (mark as processed)
+export const processItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const item = await Label.findById(id);
+    if (!item) return res.status(404).json({ message: "Item not found" });
+
+    // move pending to actual
+    item.quantity += item.pendingQuantity;
+    item.pendingQuantity = 0;
+    item.status = "processed";
+
+    const updatedItem = await item.save();
+    res.json(updatedItem);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+// Get all pending items
+export const getPendingItems = async (req, res) => {
+  try {
+    const items = await Label.find({ status: "pending" }).sort({ updatedAt: -1 });
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+// Get all processed items
+export const getProcessedItems = async (req, res) => {
+  try {
+    const items = await Label.find({ status: "processed" }).sort({ updatedAt: -1 });
     res.json(items);
   } catch (error) {
     res.status(500).json({ message: error.message });
