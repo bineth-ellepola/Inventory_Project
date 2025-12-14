@@ -11,12 +11,12 @@ const Sidebar = () => {
     }}>
       <h2>Menu</h2>
 
-      <h3>Admin</h3>
+      <h3>Store</h3>
       <Link to="/admin/labels">Labels</Link><br />
       <Link to="/admin/chemicals">Chemicals</Link><br />
       <Link to="/admin/packing">Packing</Link><br />
 
-      <h3>Store</h3>
+      <h3>admin</h3>
       <Link to="/store/labels">Labels</Link><br />
       <Link to="/store/chemicals">Chemicals</Link><br />
       <Link to="/store/packing">Packing</Link><br />

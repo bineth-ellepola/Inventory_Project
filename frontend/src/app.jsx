@@ -1,36 +1,43 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+
+import Login from "./pages/Login";
+
+import AdminLayout from "./layouts/AdminLayout";
+import StoreLayout from "./layouts/StoreLayout";
 
 import AdminLabels from "./pages/AdminDashboard/AdminLabels";
 import AdminChemicals from "./pages/AdminDashboard/AdminChemicals";
-import AdminPacking from "./pages/AdminDashboard/AdminPacking";
+import AdminPackingMaterials from "./pages/AdminDashboard/AdminPacking";
 
 import StoreLabels from "./pages/StoreDashboard/StoreLabels";
 import StoreChemicals from "./pages/StoreDashboard/StoreChemicals";
-import StorePacking from "./pages/StoreDashboard/StorePacking";
+import StorePackingMaterials from "./pages/StoreDashboard/StorePacking";
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
-      <div style={{ display: "flex" }}>
-        <Sidebar />
+      <Routes>
 
-        <div className="page" style={{ padding: "20px", width: "100%" }}>
-          <Routes>
-            {/* Admin */}
-            <Route path="/admin/labels" element={<AdminLabels />} />
-            <Route path="/admin/chemicals" element={<AdminChemicals />} />
-            <Route path="/admin/packing" element={<AdminPacking />} />
+        {/* LOGIN */}
+        <Route path="/" element={<Login />} />
 
-            {/* Store Manager */}
-            <Route path="/store/labels" element={<StoreLabels />} />
-            <Route path="/store/chemicals" element={<StoreChemicals />} />
-            <Route path="/store/packing" element={<StorePacking />} />
-          </Routes>
-        </div>
-      </div>
+        {/* ADMIN */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="labels" element={<AdminLabels />} />
+          <Route path="chemicals" element={<AdminChemicals />} />
+          <Route path="packing" element={<AdminPackingMaterials />} />
+        </Route>
+
+        {/* STORE MANAGER */}
+        <Route path="/store" element={<StoreLayout />}>
+          <Route path="labels" element={<StoreLabels />} />
+          <Route path="chemicals" element={<StoreChemicals />} />
+          <Route path="packing" element={<StorePackingMaterials />} />
+        </Route>
+
+      </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;

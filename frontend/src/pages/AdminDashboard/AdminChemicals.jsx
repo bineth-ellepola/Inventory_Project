@@ -94,4 +94,4 @@ const AdminLabels = () => {
   );
 };
 
-export default AdminChemicals;
+export default AdminLabels;

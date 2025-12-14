@@ -22,8 +22,8 @@ const ItemTable = ({ items, onUpdate, onReduce, onProcess, showProcess }) => {
             <td>{item.status}</td>
 
             <td>
-              <button onClick={() => onUpdate(item._id)}>Update</button>
-              <button onClick={() => onReduce(item._id)}>Reduce</button>
+              <button onClick={() => onUpdate(item._id)}>+ item</button>
+              <button onClick={() => onReduce(item._id)}>- item</button>
 
               {showProcess && (
                 <button onClick={() => onProcess(item._id)}>Process</button>

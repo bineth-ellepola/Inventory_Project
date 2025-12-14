@@ -94,4 +94,4 @@ const AdminLabels = () => {
   );
 };
 
-export default AdminPacking;
+export default AdminLabels;
